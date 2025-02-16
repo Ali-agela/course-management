@@ -7,6 +7,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonsController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\UploaderController;
 
 // the routes for the api
 
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [UserController::class, 'logout']);
     Route::delete('/user', [UserController::class, 'delete']);
     Route::get('users', [UserController::class, 'users']);
+    Route::post('/user/photo', [UploaderController::class, 'uploadProfilePic']);
 
 
 
@@ -57,6 +59,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('course/lesson/{id}', [LessonsController::class, 'updateLesson']);
     Route::delete('course/lesson/{id}', [LessonsController::class, 'deleteLesson']);
     Route::get('course/{id}/lesson', [LessonsController::class, 'courseLessons']);
+    Route::post('lesson/{id}/video', [UploaderController::class, 'uploadVideoLesson']);
 
     //------------------------------------------------------------------------------------------
 

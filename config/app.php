@@ -126,10 +126,10 @@ return [
 
     //'providers' => [],
 
-    'providers' => [
-       // App\Providers\FilesServiceProvider::class, 
+    // 'providers' => [
+    //    // App\Providers\FilesServiceProvider::class, 
 
-            //App\Providers\AuthServiceProvider::class,
-    ],
+    //         //App\Providers\AuthServiceProvider::class,
+    // ],
 
 ];
