@@ -124,8 +124,12 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    // 'providers' => [
-    //     App\Providers\AuthServiceProvider::class,
-    // ],
+    //'providers' => [],
+
+    'providers' => [
+       // App\Providers\FilesServiceProvider::class, 
+
+            //App\Providers\AuthServiceProvider::class,
+    ],
 
 ];
