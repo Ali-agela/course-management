@@ -36,7 +36,7 @@ class EnrollmentController extends Controller
             'course_id' => $request->course_id,
         ]);
 
-        return response()->json(['message' => $enrrollment, 201]);
+        return response()->json(['message' => $enrrollment], 201);
     }
 
 

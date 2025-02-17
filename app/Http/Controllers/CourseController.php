@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Course;
+use App\Models\User;
 
 class CourseController extends Controller
 {
@@ -59,10 +60,42 @@ class CourseController extends Controller
             'duration' => 'required|string',
             'category' => 'required|in:web development,mobile development,networking,security,data science,machine learning,AI,blockchain',
         ]);
+
+        //check if the user is an admin and wants to create a course for an instructor
+        if (auth()->user()->role === 'admin') {
+
+            request()->validate([
+                'instructor_id' => 'required|exists:users,id',
+            ],);
+            $instructor = User::findOrFail($request->instructor_id);
+
+            //check if the user is an instructor
+            if ($instructor->role !== 'instructor') {
+                return response()->json(['message' => 'The user is not an instructor'], 400);
+            }
+
+            // admins creates a course for an instructor
+            $course = Course::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'category' => $request->category,
+                'price' => $request->price,
+                'duration' => $request->duration,
+                'instructor_id' => $instructor->id,
+            ]);
+
+            return response()->json($course, 201);
+
+
+        }
+
+
         //check if the user is an instructor
         if (auth()->user()->role !== 'instructor') {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
+
+
         //create a new course
         $course = Course::create([
             'title' => $request->title,
@@ -87,10 +120,28 @@ class CourseController extends Controller
             'duration' => 'required|string',
             'category' => 'required|in:web development,mobile development,networking,security,data science,machine learning,AI,blockchain',
         ]);
+
+
+        //check if the user is an admin and wants to updates a course 
+        if (auth()->user()->role === 'admin') {
+            $course = Course::findOrFail($id);
+            $course->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'category' => $request->category,
+                'price' => $request->price,
+                'duration' => $request->duration,
+            ]);
+            return response()->json($course);
+        }
+
+
         //check if the user is an instructor
         if (auth()->user()->role !== 'instructor') {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
+
+
         //find the course then updates it   if not found returns 404 not found
         $course = auth()->user()->courses()->findOrFail($id);
         $course->update([
@@ -104,9 +155,17 @@ class CourseController extends Controller
         return response()->json($course);
     }
 
+
     // Delete a course only for instructors and admins
     public function deleteCourse($id)
     {
+        //check if the user is an admin and wants to delete a course
+        if (auth()->user()->role === 'admin') {
+            $course = Course::findOrFail($id);
+            $course->delete();
+            return response()->json(['message' => 'Course deleted successfully']);
+        }
+
         //check if the user is an instructor
         if (auth()->user()->role !== 'instructor') {
             return response()->json(['message' => 'Unauthorized'], 401);

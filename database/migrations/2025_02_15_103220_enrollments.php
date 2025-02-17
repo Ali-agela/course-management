@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('enrollments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users');
-            $table->foreignId('course_id')->constrained('courses');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
             $table->enum('status', ['pending', 'approved', 'completed'])->default('pending');
             $table->timestamps();
         });

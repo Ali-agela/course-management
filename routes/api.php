@@ -15,6 +15,15 @@ use App\Http\Controllers\UploaderController;
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
+// the courses listing routes
+Route::get('/courses', [CourseController::class, 'index']);
+Route::get('/courses/{id}', [CourseController::class, 'show']);
+
+Route::get('course/{id}/reviews', [ReviewsController::class, 'courseReviews']);
+
+
+
+
 // the routes that need authentication
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -34,8 +43,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
     // the course routes
-    Route::get('/courses', [CourseController::class, 'index']);
-    Route::get('/courses/{id}', [CourseController::class, 'show']);
     Route::post('courses', [CourseController::class, 'createCourse']);
     Route::put('courses/{id}', [CourseController::class, 'updateCourse']);
     Route::delete('courses/{id}', [CourseController::class, 'deleteCourse']);
@@ -67,7 +74,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('course/{id}/reviews', [ReviewsController::class, 'addReview']);
     Route::put('reviews/{review_id}', [ReviewsController::class, 'updateReview']);
     Route::delete('reviews/{review_id}', [ReviewsController::class, 'deleteReview']);
-    Route::get('course/{id}/reviews', [ReviewsController::class, 'courseReviews']);
 
     //------------------------------------------------------------------------------------------
 });

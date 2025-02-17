@@ -102,14 +102,24 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    // Delete the authenticated user
-    public function delete()
+    // Delete the a user
+    public function delete(Request $request)
     {
-        //deleting the user
+        //the admin can delete any other user by passing the id in the request
+        if(auth()->user()->role === 'admin' && $request->has('id')){
+            $user = User::findOrFail($request->id);
+            $user->delete();
+            return response()->json(['message' => 'User deleted']);
+            
+        }
+
+        //the user can delete his own account
         $user = auth()->user();
         $user->delete();
         return response()->json(['message' => 'User deleted']);
     }
+
+
 
     // Get all users for admins only
     public function users(Request $request)
