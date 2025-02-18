@@ -1,28 +1,55 @@
-# Use the official PHP 8.1+ Apache image
-FROM php:8.1-apache
+# ---------------------------------------
+# Stage 1: Build the PHP dependencies
+# ---------------------------------------
+FROM php:8.2-fpm AS build
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    zip unzip git curl libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Set the working directory
 WORKDIR /var/www/html
 
-# Install system packages & PHP extensions
-RUN apt-get update && apt-get install -y \
-    libzip-dev zip unzip \
-    && docker-php-ext-install pdo_mysql mysqli zip
+# Copy only the files needed for composer first (for better caching)
+COPY composer.json composer.lock ./
 
-# Install Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install PHP dependencies (no-dev for production)
+RUN composer install --optimize-autoloader --no-dev
 
-# Copy your Laravel project into the container
+# Copy the rest of the application code
 COPY . .
 
-# Install Laravel dependencies
-RUN composer install --no-dev --optimize-autoloader
+# ---------------------------------------
+# Stage 2: Production container
+# ---------------------------------------
+FROM php:8.2-fpm
 
-# (Optional) Set correct permissions for storage & cache
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# Install system dependencies, NGINX, and Supervisor
+RUN apt-get update && apt-get install -y \
+    nginx supervisor libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql \
+    && rm -rf /var/lib/apt/lists/*
 
-# Expose port 80 for Apache
+# Copy application from build stage
+COPY --from=build /var/www/html /var/www/html
+
+# Set working directory
+WORKDIR /var/www/html
+
+# Set permissions for Laravel folders
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Copy the NGINX and Supervisor configuration files
+COPY docker/nginx.conf /etc/nginx/sites-available/default
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+
+# Expose port 80 for HTTP
 EXPOSE 80
 
-# Start Apache
-CMD ["apache2-foreground"]
+# Start Supervisor (which runs both NGINX and PHP-FPM)
+CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

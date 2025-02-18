@@ -1,7 +1,33 @@
 services:
-  - name: laravel-app
-    type: web
+  - type: web
+    name: laravel-api
     env: docker
+    repo: https://github.com/Ali-agela/course-management.git
     plan: free
-    dockerfilePath: Dockerfile
-    # OPTIONAL: If you need to run extra commands, you can add them here.
+    region: oregon
+    branch: main
+    rootDir: /
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DB_HOST
+        value: dpg-cuqal6tds78s739aepv0-a
+      - key: DB_PORT
+        value: 5432
+      - key: DB_DATABASE
+        value: laravel
+      - key: DB_USERNAME
+        value: ali
+      - key: DB_PASSWORD
+        sync: false
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: QUEUE_CONNECTION
+        value: database
