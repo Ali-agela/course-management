@@ -17,11 +17,12 @@ WORKDIR /var/www/html
 # Copy only the files needed for composer first (for better caching)
 COPY composer.json composer.lock ./
 
+# Copy the rest of the application code
+COPY . .
+
 # Install PHP dependencies (no-dev for production)
 RUN composer install --optimize-autoloader --no-dev --no-interaction --no-plugins
 
-# Copy the rest of the application code
-COPY . .
 
 # ---------------------------------------
 # Stage 2: Production container
