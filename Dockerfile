@@ -56,6 +56,9 @@ EXPOSE 80
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 
-# Run the migrations and seed the database
-RUN php artisan migrate --force && php artisan db:seed --force
+# Run the migrations 
+RUN php artisan migrate --force 
+
+# seed the database
+RUN php artisan db:seed --force
 
