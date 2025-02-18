@@ -54,3 +54,8 @@ EXPOSE 80
 
 # Start Supervisor (which runs both NGINX and PHP-FPM)
 CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+
+# Run the migrations and seed the database
+RUN php artisan migrate --force && php artisan db:seed --force
+
