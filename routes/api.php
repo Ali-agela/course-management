@@ -76,5 +76,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('reviews/{review_id}', [ReviewsController::class, 'deleteReview']);
 
     //------------------------------------------------------------------------------------------
+
+
+    
+    // temrory routes to run migration and seed the database
+    Route::get('/run-migrations', function () {
+        $output = Artisan::call('migrate', ['--force' => true, '--verbose' => true]);
+        return response()->json(['output' => $output]);
+    });
+
+    Route::get('/run-seeders', function () {
+        $output = Artisan::call('db:seed', ['--force' => true, '--verbose' => true]);
+        return response()->json(['output' => $output]);
+    });
+
 });
 
