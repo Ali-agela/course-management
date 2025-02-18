@@ -25,14 +25,17 @@ class UserController extends Controller
         //checking if the new user role only admins can make other admins 
         if ($request->role === 'admin') {
 
-            //checking if the user is an admin if is create if not return unauthorized
-            if (auth()->user()->role === 'admin') {
-                $user = User::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => bcrypt($request->password),
-                    'role' => $request->role,
-                ]);
+            //checking if the user is an admin,  if is create if not return unauthorized
+            if (auth()->check()) {
+                if (auth()->user()->role === 'admin') {
+                    $user = User::create([
+                        'name' => $request->name,
+                        'email' => $request->email,
+                        'password' => bcrypt($request->password),
+                        'role' => $request->role,
+                    ]);
+                }
+
             } else {
                 return response()->json(['message' => 'Unauthorized'], 401);
             }
@@ -92,7 +95,7 @@ class UserController extends Controller
         // Validateing  the request data
         $input = $request->validate([
             'name' => ['string'],
-            'email' => ['email'],
+            'email' => ['email', 'unique:users,email'],
 
         ]);
 
@@ -106,11 +109,11 @@ class UserController extends Controller
     public function delete(Request $request)
     {
         //the admin can delete any other user by passing the id in the request
-        if(auth()->user()->role === 'admin' && $request->has('id')){
+        if (auth()->user()->role === 'admin' && $request->has('id')) {
             $user = User::findOrFail($request->id);
             $user->delete();
             return response()->json(['message' => 'User deleted']);
-            
+
         }
 
         //the user can delete his own account
