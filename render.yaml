@@ -18,7 +18,7 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DB_HOST
-        value: dpg-cuqal6tds78s739aepv0-a.oregon.render.com
+        sync: false
       - key: DB_PORT
         value: 5432
       - key: DB_DATABASE
