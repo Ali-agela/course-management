@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->text('description');
             $table->enum('category', ['web development', 'mobile development', 'networking', 'security', 'data science', 'machine learning', 'AI', 'blockchain','backend','frontend']);
             $table->decimal('price', 8, 2)->nullable();
-            $table->integer('duration');
+            $table->string('duration');
             $table->foreignId('instructor_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
