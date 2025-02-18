@@ -57,8 +57,8 @@ CMD ["supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 
 # Run the migrations 
-# RUN php artisan migrate --force 
+RUN php artisan migrate --force   --verbose 
 
 # seed the database
-RUN php artisan db:seed --force
+RUN php artisan db:seed --force  --verbose
 
