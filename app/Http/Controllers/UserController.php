@@ -86,7 +86,7 @@ class UserController extends Controller
     public function user(Request $request)
     {
         //returning the authenticated user
-        return $request->user();
+        return auth()->user();
     }
 
     // Update the authenticated user

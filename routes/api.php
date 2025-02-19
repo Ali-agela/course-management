@@ -79,6 +79,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 });
+
+
 // temrory routes to run migration and seed the database
 Route::get('/run-migrations', function () {
     try {
