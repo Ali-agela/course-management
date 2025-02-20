@@ -1,66 +1,69 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+##  Overview of the system  "course - management - system " 
+ 
+ the system is designed to serve the simple functionality of any course management  systmes 
+ functions   like creating accounts, managing courses, enrrolling and even leaving comments 
+ the porpose of the system was to show my skills as one of the canidiates to a back-end developer in artisans and not based on any real system ideas 
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features  of the system
+ as said earliar the system provides a very simple Features and they will be discussed below :
+    
+    # regestration
+     the first Features provided by the system is the ability to create accounts 
+     any user in the system can create an account for him self by providing his name,email,password, and role 
+     as is for the role he can assign any role to him self except the role of  admin the role of admin can be only created by another admin
+     any wrong input or dublicapted emails will be rejected by the system
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+    # authentican and autharizationn
+    
+     one of the importan  Features provided by the system is the ability to check on the user make sure he is who he claims to be (authentication)
+     and knowing what can he do (authrizaion) the system does this by the use of the login api which the user uses by providing a email and a   passwprd which then if the cridintials are correct he will get a token that will serve for the rest of the opreations 
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    #course management 
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+     the system allows any user with a an instructor role to create and manage a course he can create a course by providing some data like the name of the course a short description also the price and duration and category no other instrucor nor student can modify or delete an instructors course but only an  admin can an admin can create a course for an instructor modify it and even delete it another Feature in the course management is the ability to add lessons in a course a instructor can add a list of lessons in his course and even upload a video for each lesson and any student enrolled in the course can acces and see the lessons 
 
-## Laravel Sponsors
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    # Review and Ratings 
+     another Feature we have is that a student can leave his comments  and a rating on any course the reviews can be seen by all users but can only be modified and deleted  by the student who wrote them, never the less an admin has also the power to delete any review if he feels like it 
 
-### Premium Partners
+    # end point filtring 
+     the system provides a way to filter courses in a single request depends on the data sent if there was no data sent all the courses return  you could add the price key so u can only show courses under that price or use the category key so you can get courses in the same topics 
+     same Feature is provided for the users but it can only be used by admins and it uses the same consept no data you get all users  and the users get filtterd depnds on the keys you add 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Requirements
+    so you can be able to run the project you will need the follwing stacks :
+       PHP 8.2 or higher
+       Composer (for dependency management)
+       Laravel 10 or higher 
+       for the database I used sqlite while development but when deployed i switched to PostgreSQL since it was the one provided by the host
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Installation
+  if you would like to try  installing the sytem your self follow this steps 
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    1) run this command in your cli  :   git clone https://github.com/Ali-agela/course-management.git  
+        this will get the project in your local machine 
+    2)when you open the  project folder you will find in the root dirctory a file named .env.example rename this file to   .env 
+    3) run this commnd in your cli : php artisan key:generate
+        this command will generat the app_key for you   
+        now this enviroment uses sqlite as database and your machine as a host if you wish to change the database you will find the database settings in the same file 
+    4)run php artisan migrate:fresh this well create all the tables in the databse 
+    5)run php artisan db:seedd   this will fell the databse with some data for testing 
+    6)then run php artisan serve 
 
-## Security Vulnerabilities
+### Usages and API documentaion 
+    to see any example usages of the api`s and to see the full documention follow thoses links 
+    https://lati55.postman.co/workspace/Travel~9c199bcd-3716-4648-9984-4e1ee1a20ec0/documentation/36422747-46a1d820-d73c-4379-9272-02a3ffa2981e  for the documention 
+    https://lati55.postman.co/workspace/Travel~9c199bcd-3716-4648-9984-4e1ee1a20ec0/collection/36422747-46a1d820-d73c-4379-9272-02a3ffa2981e?action=share&creator=36422747  
+    and this for the post man collection 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    ## notice that the project is already hosted and live the postman collection is made to test the deployment version  
+    if you want postman to send the request to the one in your local machine change the BASE_URL varible in the collection to your localhost
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### the project is hosted under the URL   https://course-management-test.onrender.com/

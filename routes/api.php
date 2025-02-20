@@ -81,9 +81,12 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 
+
+
 // temrory routes to run migration and seed the database
 Route::get('/run-migrations', function () {
     try {
+        $output = Artisan::call('storage:link', ['--force' => true, '--verbose' => true]);
         $output = Artisan::call('migrate:fresh', ['--force' => true, '--verbose' => true]);
         $output = Artisan::call('db:seed', ['--force' => true, '--verbose' => true]);
         return response()->json(['output' => Artisan::output()]);
@@ -92,6 +95,8 @@ Route::get('/run-migrations', function () {
     }
 
 });
+
+
 
 Route::get('/run-seeders', function () {
     $output = Artisan::call('db:seed', ['--force' => true, '--verbose' => true]);
