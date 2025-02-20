@@ -15,38 +15,32 @@ class CoursesSeeder extends Seeder
     {
         $courses = [
             [
-            'title' => 'Laravel 8',
-            'description' => 'Learn Laravel 8 from scratch',
-            'instructor_id' => 2,
-            'category' => 'backend',
-            'duration' => '10 hours',
-            'price' => 500,
+                'title' => 'Laravel 8',
+                'description' => 'Learn Laravel 8 from scratch',
+                'instructor_id' => 2,
+                'category' => 'backend',
+                'duration' => '10 hours',
             ],
             [
-            'title' => 'React JS',
-            'description' => 'Learn React JS from scratch',
-            'instructor_id' => 5,
-            'category' => 'frontend',
-            'duration' => '12 hours',
-            'price' => 600,
-            
+                'title' => 'React JS',
+                'description' => 'Learn React JS from scratch',
+                'instructor_id' => 5,
+                'category' => 'frontend',
+                'duration' => '12 hours',
             ],
             [
-            'title' => 'Vue JS',
-            'description' => 'Learn Vue JS from scratch',
-            'instructor_id' => 2,
-            'category' => 'frontend',
-            'duration' => '8 hours',
-            'price' => 400,
-            
+                'title' => 'Vue JS',
+                'description' => 'Learn Vue JS from scratch',
+                'instructor_id' => 2,
+                'category' => 'frontend',
+                'duration' => '8 hours',
             ],
             [
-            'title' => 'Node JS',
-            'description' => 'Learn Node JS from scratch',
-            'instructor_id' => 5,
-            'category' => 'web development',
-            'duration' => '15 hours',
-            'price' => 700,
+                'title' => 'Node JS',
+                'description' => 'Learn Node JS from scratch',
+                'instructor_id' => 5,
+                'category' => 'web development',
+                'duration' => '15 hours',
             ],
         ];
 
