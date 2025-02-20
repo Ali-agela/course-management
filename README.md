@@ -40,7 +40,7 @@
        PHP 8.2 or higher
        Composer (for dependency management)
        Laravel 10 or higher 
-       for the database I used sqlite while development but when deployed i switched to PostgreSQL since it was the one provided by the host
+            for the database I used sqlite while development but when deployed i switched to PostgreSQL since it was the one provided by the host
 
 
 

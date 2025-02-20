@@ -20,6 +20,7 @@ class CoursesSeeder extends Seeder
             'instructor_id' => 2,
             'category' => 'backend',
             'duration' => '10 hours',
+            'price' => 500,
             ],
             [
             'title' => 'React JS',
@@ -27,6 +28,8 @@ class CoursesSeeder extends Seeder
             'instructor_id' => 5,
             'category' => 'frontend',
             'duration' => '12 hours',
+            'price' => 600,
+            
             ],
             [
             'title' => 'Vue JS',
@@ -34,6 +37,8 @@ class CoursesSeeder extends Seeder
             'instructor_id' => 2,
             'category' => 'frontend',
             'duration' => '8 hours',
+            'price' => 400,
+            
             ],
             [
             'title' => 'Node JS',
@@ -41,6 +46,7 @@ class CoursesSeeder extends Seeder
             'instructor_id' => 5,
             'category' => 'web development',
             'duration' => '15 hours',
+            'price' => 700,
             ],
         ];
 
